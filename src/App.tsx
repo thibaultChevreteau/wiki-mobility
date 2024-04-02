@@ -1,35 +1,71 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useEffect, useState } from "react";
+import solutionService from "./services/solution";
+import { NewSolution, Solution } from "./types";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+	const [solutions, setSolutions] = useState<Solution[]>([]);
+	const [newSolution, setNewSolution] = useState<NewSolution>({
+		name: "",
+		description: "",
+	});
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+	useEffect(() => {
+		const fetchSolutions = async () => {
+			const solutions = await solutionService.getAll();
+			setSolutions(solutions);
+		};
+		void fetchSolutions();
+	}, []);
 
-export default App
+	const handleInputChange = (
+		event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+	) => {
+		const { name, value } = event.target;
+		setNewSolution({
+			...newSolution,
+			[name]: value,
+		});
+	};
+
+	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		const addedSolution = await solutionService.addNew(newSolution);
+		setSolutions([...solutions, addedSolution]);
+		setNewSolution({ name: "", description: "" });
+	};
+
+	return (
+		<div>
+			<h1>Solutions</h1>
+			<ul>
+				{solutions.map((solution) => (
+					<li key={solution.id}>
+						<h2>{solution.name}</h2>
+						<p>{solution.description}</p>
+					</li>
+				))}
+			</ul>
+			<form onSubmit={handleSubmit}>
+				<h2>Add a Solution</h2>
+				<label htmlFor="name">Name:</label>
+				<input
+					type="text"
+					id="name"
+					name="name"
+					value={newSolution.name}
+					onChange={handleInputChange}
+				/>
+				<label htmlFor="description">Description:</label>
+				<input
+					id="description"
+					name="description"
+					value={newSolution.description}
+					onChange={handleInputChange}
+				/>
+				<button type="submit">Add Solution</button>
+			</form>
+		</div>
+	);
+};
+
+export default App;
