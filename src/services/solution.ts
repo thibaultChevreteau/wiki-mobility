@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Solution, NewSolution } from "../types";
-const apiBaseUrl = "http://localhost:3000/api/solutions";
+const apiBaseUrl = "/api/solutions";
 
 const getAll = () => {
 	const request = axios.get(apiBaseUrl);
