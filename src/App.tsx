@@ -1,9 +1,10 @@
+import NavBar from "./components/NavBar";
 import Solutions from "./components/Solutions";
 
 const App = () => {
 	return (
 		<div>
-			<h1>Solutions</h1>
+			<NavBar />
 			<Solutions />
 		</div>
 	);

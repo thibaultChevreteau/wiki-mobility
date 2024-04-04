@@ -7,13 +7,13 @@
 
 .solution-card {
 	flex: 0 0 calc(50% - 20px);
-	margin-bottom: 20px;
+	margin-bottom: $margin-lg;
 	max-width: 20rem;
-	border-radius: 0.5rem;
+	border-radius: $border-radius-lg;
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
 	&:not(:last-child) {
-		margin-right: 20px;
+		margin-right: $margin-lg;
 	}
 
 	&__image {
@@ -23,17 +23,19 @@
 	}
 
 	&__content {
-		padding: 1.5rem;
+		padding: $padding-lg;
 
 		&__title {
+			font-family: $body-font-family;
 			font-weight: bold;
-			font-size: 1.5rem;
-			margin-bottom: 1rem;
+			font-size: $heading-5-font-size;
+			margin-bottom: $margin-base;
 		}
 
 		&__description {
-			color: #4b5563;
-			font-size: 1rem;
+			font-family: $heading-font-family;
+			color: $body-font-color;
+			font-size: $base-font-size;
 		}
 	}
 }

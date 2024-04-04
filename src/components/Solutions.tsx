@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { setSolutions } from "../reducers/solutionsReducer";
 import { useAppSelector, useAppDispatch } from "../hooks";
-import "../App.scss";
 
 const Solutions = () => {
 	const dispatch = useAppDispatch();
