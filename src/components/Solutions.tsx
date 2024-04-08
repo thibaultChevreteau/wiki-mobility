@@ -18,22 +18,30 @@ const Solutions = () => {
 	}, [dispatch]);
 
 	return (
-		<div className="solution-container">
-			{solutions.map((solution) => (
-				<div className="solution-card" key={solution.id}>
-					<img
-						className="solution-card__image"
-						src={solution.img}
-						alt={solution.name}
-					/>
-					<div className="solution-card__content">
-						<div className="solution-card__content__title">{solution.name}</div>
-						<p className="solution-card__content__description">
-							{solution.description}
-						</p>
+		<div className="presentation">
+			<h1 className="presentation__title">Solutions de mobilité</h1>
+			<p className="presentation__description">
+				Catalogue de solutions innovantes et durables
+			</p>
+			<div className="solution-container">
+				{solutions.map((solution) => (
+					<div className="solution-card" key={solution.id}>
+						<img
+							className="solution-card__image"
+							src={solution.img}
+							alt={solution.name}
+						/>
+						<div className="solution-card__content">
+							<div className="solution-card__content__title">
+								{solution.name}
+							</div>
+							<p className="solution-card__content__description">
+								{solution.description}
+							</p>
+						</div>
 					</div>
-				</div>
-			))}
+				))}
+			</div>
 		</div>
 	);
 };

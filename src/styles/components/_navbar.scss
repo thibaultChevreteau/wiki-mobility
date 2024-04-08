@@ -29,7 +29,7 @@
 			text-decoration: none;
 
 			&:hover {
-				color: $body-title-color;
+				color: $title-font-color;
 			}
 		}
 
@@ -38,6 +38,7 @@
 			background-color: $primary-color;
 			color: white;
 			border-radius: $border-radius-base;
+			margin-left: $margin-sm;
 
 			&:hover {
 				background-color: $secondary-color;
@@ -62,6 +63,49 @@
 				color: $body-font-color;
 			}
 		}
+
+		&__toggle,
+		&__close {
+			font-size: 1.5rem;
+			cursor: pointer;
+		}
+
+		&__close {
+			position: absolute;
+			top: 1rem;
+			right: 1.5rem;
+		}
+	}
+}
+
+@media screen and (max-width: $breakpoint-md) {
+	.nav__links {
+		display: flex;
+		flex-direction: column;
+		row-gap: $margin-lg;
+		margin: $margin-base;
+	}
+
+	.hide-menu {
+		display: none;
+	}
+
+	.show-menu {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.nav__close {
+		position: absolute;
+		top: 1.2rem;
+		right: 0.5rem;
+	}
+}
+
+@media screen and (min-width: $breakpoint-md) {
+	.nav__toggle,
+	.nav__close {
+		display: none;
 	}
 }
 

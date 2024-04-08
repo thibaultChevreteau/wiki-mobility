@@ -1,12 +1,30 @@
+.presentation {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	font-family: $heading-font-family;
+	color: $title-font-color;
+	align-items: center;
+
+	&__title {
+		margin: 0;
+	}
+
+	&__description {
+		margin-bottom: $margin-lg;
+	}
+}
+
 .solution-container {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 20px;
 	justify-content: center;
+	font-family: $heading-font-family;
+	color: $title-font-color;
 }
 
 .solution-card {
-	flex: 0 0 calc(50% - 20px);
 	margin-bottom: $margin-lg;
 	max-width: 20rem;
 	border-radius: $border-radius-lg;

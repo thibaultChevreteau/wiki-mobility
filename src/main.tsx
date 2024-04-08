@@ -4,6 +4,7 @@ import App from "./App.tsx";
 import store from "./store";
 import { BrowserRouter as Router } from "react-router-dom";
 import "./styles/main.scss";
+import "@fontsource/ubuntu";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<Provider store={store}>
