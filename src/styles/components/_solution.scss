@@ -1,0 +1,41 @@
+.solution {
+	max-width: 1100px;
+	margin: auto;
+	font-family: $heading-font-family;
+
+	&__description {
+		color: $body-font-color;
+	}
+
+	&__image-and-map {
+		display: flex;
+		flex-direction: row;
+		gap: $margin-base;
+	}
+
+	&__image {
+		max-width: 100rem;
+		height: 300px;
+		border-radius: $border-radius-lg;
+		object-fit: cover;
+	}
+
+	&__details {
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6 {
+			border-bottom: 1px solid $border-color;
+			margin-top: $margin-lg;
+		}
+	}
+}
+
+@media screen and (max-width: $breakpoint-md) {
+	.solution__image-and-map {
+		display: flex;
+		flex-direction: column;
+	}
+}

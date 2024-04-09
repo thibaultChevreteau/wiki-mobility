@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { setSolutions } from "../reducers/solutionsReducer";
 import { useAppSelector, useAppDispatch } from "../hooks";
+import { Link } from "react-router-dom";
 
 const Solutions = () => {
 	const dispatch = useAppDispatch();
@@ -26,19 +27,24 @@ const Solutions = () => {
 			<div className="solution-container">
 				{solutions.map((solution) => (
 					<div className="solution-card" key={solution.id}>
-						<img
-							className="solution-card__image"
-							src={solution.img}
-							alt={solution.name}
-						/>
-						<div className="solution-card__content">
-							<div className="solution-card__content__title">
-								{solution.name}
+						<Link
+							to={`/solutions/${solution.id}`}
+							className="solution-card__link"
+						>
+							<img
+								className="solution-card__image"
+								src={solution.img}
+								alt={solution.name}
+							/>
+							<div className="solution-card__content">
+								<div className="solution-card__content__title">
+									{solution.name}
+								</div>
+								<p className="solution-card__content__description">
+									{solution.description}
+								</p>
 							</div>
-							<p className="solution-card__content__description">
-								{solution.description}
-							</p>
-						</div>
+						</Link>
 					</div>
 				))}
 			</div>

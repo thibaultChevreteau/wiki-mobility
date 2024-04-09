@@ -3,7 +3,6 @@ import { useState } from "react";
 
 const NavBar = () => {
 	const [showMenu, setShowMenu] = useState(false);
-	console.log(showMenu);
 
 	const toggleMenu = () => {
 		setShowMenu(!showMenu);
@@ -11,13 +10,13 @@ const NavBar = () => {
 
 	return (
 		<div className="header">
-			<nav className={`nav ${showMenu ? "" : "show-menu"}`}>
+			<nav className={`nav ${showMenu ? "show-menu" : ""}`}>
 				<img
 					src="/frenchtech_logo.svg"
 					alt="Brand Logo"
 					className="nav__logo"
 				/>
-				<div className={`nav__links ${showMenu ? "hide-menu" : ""}`}>
+				<div className={`nav__links ${showMenu ? "" : "hide-menu"}`}>
 					<NavLink to="/" className="nav__links__link">
 						Solutions
 					</NavLink>
@@ -47,7 +46,7 @@ const NavBar = () => {
 					</div>
 				</div>
 				<div
-					className={`nav__toggle ${!showMenu ? "hide-menu" : ""}`}
+					className={`nav__toggle ${showMenu ? "hide-menu" : ""}`}
 					onClick={toggleMenu}
 				>
 					<img
