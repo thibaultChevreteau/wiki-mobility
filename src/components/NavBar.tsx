@@ -8,24 +8,35 @@ const NavBar = () => {
 		setShowMenu(!showMenu);
 	};
 
+	const closeNavbar = () => {
+		setShowMenu(false);
+	};
+
 	return (
 		<div className="header">
 			<nav className={`nav ${showMenu ? "show-menu" : ""}`}>
-				<img
-					src="/frenchtech_logo.svg"
-					alt="Brand Logo"
-					className="nav__logo"
-				/>
+				<NavLink to="/" onClick={closeNavbar}>
+					<img
+						src="/frenchtech_logo.svg"
+						alt="Brand Logo"
+						className="nav__logo"
+					/>
+				</NavLink>
 				<div className={`nav__links ${showMenu ? "" : "hide-menu"}`}>
-					<NavLink to="/" className="nav__links__link">
+					<NavLink to="/" className="nav__links__link" onClick={closeNavbar}>
 						Solutions
 					</NavLink>
-					<NavLink to="/about" className="nav__links__link">
+					<NavLink
+						to="/about"
+						className="nav__links__link"
+						onClick={closeNavbar}
+					>
 						À propos
 					</NavLink>
 					<NavLink
 						to="/nouvelle-solution"
 						className="nav__links__link--new-solution"
+						onClick={closeNavbar}
 					>
 						<img
 							src="/pencil.svg"

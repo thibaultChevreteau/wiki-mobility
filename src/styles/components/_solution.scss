@@ -3,6 +3,12 @@
 	margin: auto;
 	font-family: $heading-font-family;
 
+	&__title {
+		display: flex;
+		flex-direction: row;
+		gap: $margin-base;
+	}
+
 	&__description {
 		color: $body-font-color;
 	}
@@ -10,11 +16,13 @@
 	&__image-and-map {
 		display: flex;
 		flex-direction: row;
-		gap: $margin-base;
+		gap: $margin-lg;
+		justify-content: center;
+		margin: $margin-base;
 	}
 
 	&__image {
-		max-width: 100rem;
+		max-width: 450px;
 		height: 300px;
 		border-radius: $border-radius-lg;
 		object-fit: cover;

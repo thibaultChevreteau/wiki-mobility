@@ -12,8 +12,15 @@ const Map: React.FC<Props> = ({ plusCode }) => {
 		const loadMap = () => {
 			// Initialize the map
 			const mapOptions: google.maps.MapOptions = {
-				center: { lat: 0, lng: 0 }, // Default center
-				zoom: 6, // Default zoom level
+				center: { lat: 0, lng: 0 },
+				zoom: 6,
+				zoomControl: true,
+				mapTypeControl: false,
+				streetViewControl: false,
+				fullscreenControl: false,
+				scaleControl: false,
+				rotateControl: false,
+				gestureHandling: "cooperative",
 			};
 			mapRef.current = new google.maps.Map(
 				mapContainerRef.current!,
@@ -55,9 +62,7 @@ const Map: React.FC<Props> = ({ plusCode }) => {
 		if (!window.google) {
 			// If Google Maps JavaScript API is not loaded, load it dynamically
 			const script = document.createElement("script");
-			script.src = `https://maps.googleapis.com/maps/api/js?key=${
-				import.meta.env.VITE_MAPS_API_KEY
-			}&libraries=places`;
+			script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.MAPS_API_KEY}&libraries=places`;
 			script.async = true;
 			script.defer = true;
 			script.onload = loadMap;

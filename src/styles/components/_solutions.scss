@@ -31,6 +31,7 @@
 	max-width: 20rem;
 	border-radius: $border-radius-lg;
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	position: relative;
 
 	&:not(:last-child) {
 		margin-right: $margin-lg;
@@ -62,5 +63,12 @@
 			color: $body-font-color;
 			font-size: $base-font-size;
 		}
+	}
+
+	&__badge {
+		position: absolute;
+		bottom: -10px;
+		right: -10px;
+		z-index: 1;
 	}
 }

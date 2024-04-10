@@ -1,0 +1,50 @@
+.solution-contact {
+	margin-bottom: $margin-lg;
+	max-width: 450px;
+	height: 300px;
+	border-radius: $border-radius-lg;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-content: space-between;
+	gap: $margin-sm;
+
+	&__favicon {
+		position: absolute;
+		bottom: -10px;
+		right: -10px;
+		z-index: 1;
+	}
+
+	&__info {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		margin: $margin-base;
+		align-items: center;
+		margin: 0 $margin-base;
+		gap: $margin-base;
+	}
+
+	&__enveloppe {
+		width: 40px;
+		height: 40px;
+	}
+
+	&__visit {
+		display: flex;
+		justify-content: center;
+		margin: 0 50% $margin-sm $margin-base;
+		padding: 3px;
+		border-radius: 4px; /* Add border radius */
+		color: white;
+		background-color: $primary-color; /* Add background color */
+		text-decoration: none;
+
+		&:hover {
+			background-color: $secondary-color;
+			color: white;
+		}
+	}
+}

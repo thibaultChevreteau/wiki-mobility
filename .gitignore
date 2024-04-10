@@ -25,3 +25,7 @@ dist-ssr
 
 # List of things to implement
 todo
+
+# Env
+.env*
+!.env.vault

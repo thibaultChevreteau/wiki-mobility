@@ -43,6 +43,13 @@ const Solutions = () => {
 								<p className="solution-card__content__description">
 									{solution.description}
 								</p>
+								{solution.region !== "autre" ? (
+									<img
+										className="solution-card__badge"
+										src={`/${solution.region}_badge.svg`}
+										alt={solution.name}
+									/>
+								) : null}
 							</div>
 						</Link>
 					</div>
