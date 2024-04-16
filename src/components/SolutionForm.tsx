@@ -1,58 +1,63 @@
-//Component to update when starting to add capacity to add solutions
+import React, { useState } from "react";
+import ReactMarkdown from "react-markdown";
+import SolutionContact from "./SolutionContact";
+import { Solution as SolutionType } from "../types";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-// import { useState } from "react";
-// import { NewSolution } from "../types";
-//import solutionService from "../services/solution";
-//import { useAppDispatch, useAppSelector } from "../hooks";
+interface Props {
+	solution: SolutionType;
+}
 
-// const SolutionForm = () => {
-//const dispatch = useAppDispatch();
-//const solutions = useAppSelector((state) => state.solutions);
+const SolutionForm: React.FC<Props> = ({ solution }) => {
+	const [title, setTitle] = useState(solution.name);
+	const navigate = useNavigate();
 
-// const [newSolution, setNewSolution] = useState<NewSolution>({
-// 	name: "",
-// 	description: "",
-// 	img: "",
-// });
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
 
-// const handleInputChange = (
-// 	event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-// ) => {
-// 	const { name, value } = event.target;
-// 	setNewSolution({
-// 		...newSolution,
-// 		[name]: value,
-// 	});
-// };
+	const handleTitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+		setTitle(e.target.value);
+	};
 
-// const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-// 	event.preventDefault();
-//const addedSolution = await solutionService.addNew(newSolution);
-//setSolutions([...solutions, addedSolution]);
-// 		setNewSolution({ name: "", description: "", img: "" });
-// 	};
+	const handleValidateChange = () => {
+		// Logic to save the changes (e.g., API call)
+		// After saving, navigate back to the Solution component
+		navigate(`/solutions/${solution.id}`);
+	};
 
-// 	return (
-// 		<form onSubmit={handleSubmit}>
-// 			<h2>Add a Solution</h2>
-// 			<label htmlFor="name">Name:</label>
-// 			<input
-// 				type="text"
-// 				id="name"
-// 				name="name"
-// 				value={newSolution.name}
-// 				onChange={handleInputChange}
-// 			/>
-// 			<label htmlFor="description">Description:</label>
-// 			<input
-// 				id="description"
-// 				name="description"
-// 				value={newSolution.description}
-// 				onChange={handleInputChange}
-// 			/>
-// 			<button type="submit">Add Solution</button>
-// 		</form>
-// 	);
-// };
+	return (
+		<div>
+			<div className="solution">
+				<div className="solution__title">
+					<textarea
+						value={title}
+						onChange={handleTitleChange}
+						placeholder={solution.name}
+					/>
+					{solution.region !== "autre" ? (
+						<img src={`/${solution.region}_badge.svg`} alt={solution.name} />
+					) : null}
+				</div>
+				<p className="solution__description">{solution.description}</p>
+				<div className="solution__image-and-map">
+					<img
+						className="solution__image"
+						src={solution.img}
+						alt={solution.name}
+					/>
+					<SolutionContact solution={solution} />
+				</div>
+				{solution.details ? (
+					<ReactMarkdown className="solution__details">
+						{solution.details}
+					</ReactMarkdown>
+				) : null}
+				<button onClick={handleValidateChange}>Validate Change</button>
+			</div>
+		</div>
+	);
+};
 
-// export default SolutionForm;
+export default SolutionForm;

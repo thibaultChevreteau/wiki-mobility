@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Solution } from "../types";
 import Map from "./Map";
 import ReactMarkdown from "react-markdown";
@@ -7,6 +8,8 @@ type Props = {
 };
 
 const SolutionContact: React.FC<Props> = ({ solution }) => {
+	const [faviconLoaded, setFaviconLoaded] = useState(true);
+
 	return (
 		<div className="solution-contact">
 			<Map plusCode={solution.googlePlusCode} />
@@ -27,13 +30,16 @@ const SolutionContact: React.FC<Props> = ({ solution }) => {
 					<a className="solution-contact__visit" href={`${solution.website}`}>
 						Visiter le site web
 					</a>
-					<a href={`${solution.website}`}>
-						<img
-							className="solution-contact__favicon"
-							src={`${solution.website}/favicon.ico`}
-							alt="solution favicon"
-						/>
-					</a>
+					{faviconLoaded ? (
+						<a href={`${solution.website}`}>
+							<img
+								className="solution-contact__favicon"
+								src={`${solution.website}/favicon.ico`}
+								alt="solution favicon"
+								onError={() => setFaviconLoaded(false)}
+							/>
+						</a>
+					) : null}
 				</div>
 			) : (
 				<div></div>

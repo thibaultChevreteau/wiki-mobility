@@ -1,23 +1,11 @@
-import { useEffect } from "react";
-import { setSolutions } from "../reducers/solutionsReducer";
-import { useAppSelector, useAppDispatch } from "../hooks";
 import { Link } from "react-router-dom";
+import { Solution } from "../types";
 
-const Solutions = () => {
-	const dispatch = useAppDispatch();
-	const solutions = useAppSelector((state) => state.solutions);
+interface Props {
+	solutions: Solution[];
+}
 
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				await dispatch(setSolutions());
-			} catch (error) {
-				console.error("Error fetching slutions:", error);
-			}
-		};
-		fetchData();
-	}, [dispatch]);
-
+const Solutions: React.FC<Props> = ({ solutions }) => {
 	return (
 		<div className="presentation">
 			<h1 className="presentation__title">Solutions de mobilité</h1>
@@ -43,6 +31,9 @@ const Solutions = () => {
 								<p className="solution-card__content__description">
 									{solution.description}
 								</p>
+								<div className="solution-card__content__category">
+									{solution.category}
+								</div>
 								{solution.region !== "autre" ? (
 									<img
 										className="solution-card__badge"
