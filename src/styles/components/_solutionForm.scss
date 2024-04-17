@@ -1,4 +1,4 @@
-.solution {
+.solutionForm {
 	max-width: 1100px;
 	margin: auto;
 	font-family: $heading-font-family;
@@ -20,6 +20,30 @@
 	&__modify img {
 		width: 50%;
 		height: auto;
+	}
+
+	&__notification {
+		border-radius: $border-radius-lg;
+		border: 1px solid $primary-color;
+		background-color: $tertiary-color;
+		color: white;
+		padding: $padding-base;
+		margin: $margin-base;
+
+		button {
+			font-size: $base-font-size;
+			background-color: $tertiary-color;
+			font-family: $heading-font-family;
+			text-decoration: underline;
+			color: white;
+			border: none;
+			cursor: pointer;
+			padding: 0;
+		}
+
+		button:hover {
+			color: $secondary-color;
+		}
 	}
 
 	&__title {
@@ -61,7 +85,7 @@
 }
 
 @media screen and (max-width: $breakpoint-md) {
-	.solution__image-and-map {
+	.solutionForm__image-and-map {
 		display: flex;
 		flex-direction: column;
 	}

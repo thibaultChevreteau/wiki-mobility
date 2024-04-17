@@ -13,7 +13,23 @@ const addNew = async (object: NewSolution) => {
 	return data;
 };
 
-const getPrivate = (accessToken) => {
+const update = async (object: Solution, accessToken: string) => {
+	const config = {
+		headers: {
+			Authorization: `Bearer ${accessToken}`,
+		},
+	};
+
+	const { data } = await axios.put<Solution>(
+		`${apiBaseUrl}/${object.id}`,
+		object,
+		config
+	);
+
+	return data;
+};
+
+const getPrivate = (accessToken: string) => {
 	const config = {
 		headers: {
 			Authorization: `Bearer ${accessToken}`,
@@ -24,7 +40,7 @@ const getPrivate = (accessToken) => {
 	return request.then((response) => response.data);
 };
 
-const getPrivateScoped = (accessToken) => {
+const getPrivateScoped = (accessToken: string) => {
 	const config = {
 		headers: {
 			Authorization: `Bearer ${accessToken}`,
@@ -35,4 +51,4 @@ const getPrivateScoped = (accessToken) => {
 	return request.then((response) => response.data);
 };
 
-export default { getAll, addNew, getPrivate, getPrivateScoped };
+export default { getAll, addNew, update, getPrivate, getPrivateScoped };

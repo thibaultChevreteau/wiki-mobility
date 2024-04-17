@@ -16,11 +16,10 @@ const Solution: React.FC<Props> = ({ solution }) => {
 	return (
 		<div>
 			<div className="solution">
-				<Link
-					to={`/solutions/${solution.id}/edit`}
-					className="solution-card__link"
-				>
-					Edit
+				<Link to={`/solutions/${solution.id}/edit`}>
+					<div className="solution__modify">
+						<img src="/pencil.svg" alt="modifier la solution" />
+					</div>
 				</Link>
 				<div className="solution__title">
 					<h1>{solution.name}</h1>

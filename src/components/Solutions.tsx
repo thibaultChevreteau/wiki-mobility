@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Solution } from "../types";
+import { Tooltip } from "react-tooltip";
 
 interface Props {
 	solutions: Solution[];
@@ -39,6 +40,8 @@ const Solutions: React.FC<Props> = ({ solutions }) => {
 										className="solution-card__badge"
 										src={`/${solution.region}_badge.svg`}
 										alt={solution.name}
+										data-tooltip-id="my-tooltip"
+										data-tooltip-content={solution.region} // Set the tooltip text here
 									/>
 								) : null}
 							</div>
@@ -46,6 +49,7 @@ const Solutions: React.FC<Props> = ({ solutions }) => {
 					</div>
 				))}
 			</div>
+			<Tooltip id="my-tooltip" />
 		</div>
 	);
 };
