@@ -2,8 +2,6 @@ import { Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Solutions from "./components/Solutions";
 import Solution from "./components/Solution";
-import LoginButton from "./components/LoginButton";
-import LogoutButton from "./components/LogoutButton";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -19,8 +17,6 @@ const App = () => {
 	const solutions = useAppSelector((state) => state.solutions);
 
 	useEffect(() => {
-		console.log("fetching");
-
 		const fetchData = async () => {
 			try {
 				await dispatch(setSolutions());
@@ -43,8 +39,6 @@ const App = () => {
 	return (
 		<div>
 			<NavBar />
-			<LoginButton />
-			<LogoutButton />
 			<Routes>
 				<Route path="/" element={<Solutions solutions={solutions} />} />
 				<Route

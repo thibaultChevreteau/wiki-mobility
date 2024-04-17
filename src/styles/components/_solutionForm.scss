@@ -15,11 +15,15 @@
 		bottom: 40px;
 		right: 40px;
 		z-index: 999;
+
+		img {
+			width: 50%;
+			height: auto;
+		}
 	}
 
-	&__modify img {
-		width: 50%;
-		height: auto;
+	&__modify:hover {
+		cursor: pointer;
 	}
 
 	&__notification {
@@ -46,10 +50,38 @@
 		}
 	}
 
+	&__authenticated {
+		@extend .solutionForm__notification;
+		background-color: $valid-color;
+		border-color: $border-valid-color;
+		color: rgb(92, 92, 92);
+
+		button {
+			color: inherit;
+			background-color: inherit;
+		}
+
+		button:hover {
+			color: $secondary-color;
+		}
+	}
+
 	&__title {
 		display: flex;
 		flex-direction: row;
 		gap: $margin-base;
+
+		input {
+			width: 80vw;
+			border: none;
+			border-bottom: 1px solid $title-font-color;
+			font-size: inherit;
+			font-family: $heading-font-family;
+		}
+
+		input:invalid {
+			border-bottom: 1px solid red;
+		}
 	}
 
 	&__description {
