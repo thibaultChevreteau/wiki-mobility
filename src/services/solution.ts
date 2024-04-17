@@ -29,26 +29,4 @@ const update = async (object: Solution, accessToken: string) => {
 	return data;
 };
 
-const getPrivate = (accessToken: string) => {
-	const config = {
-		headers: {
-			Authorization: `Bearer ${accessToken}`,
-		},
-	};
-
-	const request = axios.get("/api/private", config);
-	return request.then((response) => response.data);
-};
-
-const getPrivateScoped = (accessToken: string) => {
-	const config = {
-		headers: {
-			Authorization: `Bearer ${accessToken}`,
-		},
-	};
-
-	const request = axios.get("/api/private-scoped", config);
-	return request.then((response) => response.data);
-};
-
-export default { getAll, addNew, update, getPrivate, getPrivateScoped };
+export default { getAll, addNew, update };

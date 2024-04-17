@@ -7,7 +7,7 @@ export enum Category {
 
 export enum Region {
 	Occitanie = "occitanie",
-	NouvelleAquitaine = "nouvelle aquitaine",
+	NouvelleAquitaine = "nouvelle-aquitaine",
 	Other = "autre",
 }
 

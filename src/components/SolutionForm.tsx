@@ -12,7 +12,9 @@ interface Props {
 }
 
 const SolutionForm: React.FC<Props> = ({ solution }) => {
-	const [title, setTitle] = useState(solution.name);
+	const [name, setName] = useState(solution.name);
+	const [description, setDescription] = useState(solution.description);
+	const [region, setRegion] = useState(solution.region);
 	const [authorizedUser, setAuthorizedUser] = useState(true);
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
@@ -55,7 +57,15 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 	}, [getAccessTokenSilently, isAuthenticated]);
 
 	const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setTitle(e.target.value);
+		setName(e.target.value);
+	};
+
+	const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setDescription(e.target.value);
+	};
+
+	const handleRegionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setRegion(e.target.value);
 	};
 
 	const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -72,8 +82,7 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 
 	const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
-		logout();
-		//
+		logout({ logoutParams: { returnTo: window.location.origin } });
 	};
 
 	const handleValidateChange = async () => {
@@ -84,7 +93,12 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 					scope: "write:solutions",
 				},
 			});
-			await dispatch(updateSolution({ ...solution, name: title }, accessToken));
+			await dispatch(
+				updateSolution(
+					{ ...solution, name: name, description: description, region: region },
+					accessToken
+				)
+			);
 			navigate(`/solutions/${solution.id}`);
 		} catch (error) {
 			console.log(error);
@@ -122,17 +136,61 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 					<h1>
 						<input
 							type="text"
-							value={title}
+							value={name}
 							onChange={handleTitleChange}
 							placeholder={solution.name}
 							required
 						/>
 					</h1>
-					{solution.region !== "autre" ? (
-						<img src={`/${solution.region}_badge.svg`} alt={solution.name} />
-					) : null}
 				</div>
-				<p className="solutionForm__description">{solution.description}</p>
+				<input
+					type="radio"
+					id="occitanie"
+					name="region"
+					value="occitanie"
+					checked={region === "occitanie"}
+					onChange={handleRegionChange}
+				/>
+				<label htmlFor="occitanie">
+					<img src="/occitanie_badge.svg" alt="Occitanie" />
+				</label>
+
+				<input
+					type="radio"
+					id="nouvelle-aquitaine"
+					name="region"
+					value="nouvelle-aquitaine"
+					checked={region === "nouvelle-aquitaine"}
+					onChange={handleRegionChange}
+				/>
+				<label htmlFor="nouvelle-aquitaine">
+					<img src="/nouvelle-aquitaine_badge.svg" alt="Nouvelle-Aquitaine" />
+				</label>
+
+				{/* Render text input for Autre */}
+				<input
+					type="radio"
+					id="autre"
+					name="region"
+					value="autre"
+					checked={region === "autre"}
+					onChange={handleRegionChange}
+				/>
+				<label htmlFor="autre">Autre Région</label>
+
+				{/* {solution.region !== "autre" ? (
+					<img src={`/${solution.region}_badge.svg`} alt={solution.name} />
+				) : null} */}
+
+				<p className="solutionForm__description">
+					<input
+						type="text"
+						value={description}
+						onChange={handleDescriptionChange}
+						placeholder={solution.description}
+						required
+					/>
+				</p>
 				<div className="solutionForm__image-and-map">
 					<img
 						className="solutionForm__image"

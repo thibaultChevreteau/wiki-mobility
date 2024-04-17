@@ -72,6 +72,7 @@
 		gap: $margin-base;
 
 		input {
+			max-width: 900px;
 			width: 80vw;
 			border: none;
 			border-bottom: 1px solid $title-font-color;
@@ -85,7 +86,11 @@
 	}
 
 	&__description {
-		color: $body-font-color;
+		@extend .solutionForm__title;
+
+		input {
+			color: $body-font-color;
+		}
 	}
 
 	&__image-and-map {
