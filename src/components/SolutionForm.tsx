@@ -17,6 +17,7 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 	const [description, setDescription] = useState(solution.description);
 	const [region, setRegion] = useState(solution.region);
 	const [image, setImage] = useState(solution.img);
+	const [imageId, setImageId] = useState(solution.imgId);
 	const [authorizedUser, setAuthorizedUser] = useState(true);
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
@@ -70,8 +71,9 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 		setRegion(e.target.value as Region);
 	};
 
-	const handleImageUpload = (image: string) => {
-		setImage(image);
+	const handleImageUpload = (image: { url: string; id: string }) => {
+		setImage(image.url);
+		setImageId(image.id);
 	};
 
 	const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -99,6 +101,7 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 					scope: "write:solutions",
 				},
 			});
+
 			await dispatch(
 				updateSolution(
 					{
@@ -107,11 +110,24 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 						description: description,
 						region: region,
 						img: image,
+						imgId: imageId,
 					},
 					accessToken
 				)
 			);
 			navigate(`/solutions/${solution.id}`);
+
+			//////////////////////////////
+			// Add a condition here ! Do not delete default image ! //
+			///////////////////////////////
+
+			await fetch(`http://localhost:3000/imagekit/${solution.imgId}`, {
+				method: "DELETE",
+				headers: {
+					Authorization: "Bearer " + accessToken,
+					"Content-Type": "application/json",
+				},
+			});
 		} catch (error) {
 			console.log(error);
 		}

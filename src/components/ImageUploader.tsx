@@ -1,17 +1,20 @@
 import { IKContext, IKUpload } from "imagekitio-react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Solution as SolutionType } from "../types";
 
 interface Props {
 	solution: SolutionType;
-	onImageUpload: (image: string) => void;
+	onImageUpload: (image: { url: string; id: string }) => void;
 }
 
 const ImageUploader: React.FC<Props> = ({ solution, onImageUpload }) => {
+	const ikUploadRefTest = useRef<HTMLInputElement>(null);
 	const { getAccessTokenSilently } = useAuth0();
-	const [image, setImage] = useState(solution.img);
-
+	const [image, setImage] = useState<{ url: string; id: string }>({
+		url: solution.img,
+		id: solution.imgId,
+	});
 	const urlEndpoint = "https://ik.imagekit.io/vndkxhhge";
 	const publicKey = "public_051SlpoQfkOCqK4JT5TL6dOyFQQ=";
 	const authenticator = async () => {
@@ -52,10 +55,19 @@ const ImageUploader: React.FC<Props> = ({ solution, onImageUpload }) => {
 		console.log("Error", err);
 	};
 
-	const onSuccess = (res: unknown) => {
+	const onUploadProgress = (progress: unknown) => {
+		console.log(progress);
+	};
+
+	const onUploadStart = () => {
+		console.log("Upload started");
+	};
+
+	const onSuccess = async (res: unknown) => {
 		const uploadedImageUrl = (res as { url: string }).url;
-		setImage(uploadedImageUrl);
-		onImageUpload(uploadedImageUrl);
+		const uploadedImageId = (res as { fileId: string }).fileId;
+		setImage({ url: uploadedImageUrl, id: uploadedImageId });
+		onImageUpload({ url: uploadedImageUrl, id: uploadedImageId });
 	};
 
 	return (
@@ -72,9 +84,19 @@ const ImageUploader: React.FC<Props> = ({ solution, onImageUpload }) => {
 					validateFile={(file) => file.size < 1000000}
 					onError={onError}
 					onSuccess={onSuccess}
+					onUploadProgress={onUploadProgress}
+					onUploadStart={onUploadStart}
+					style={{ display: "none" }}
+					ref={ikUploadRefTest}
 				/>
+				<p>Custom Upload Button</p>
+				{ikUploadRefTest && (
+					<button onClick={() => ikUploadRefTest.current?.click()}>
+						Upload
+					</button>
+				)}
 			</IKContext>
-			<img className="solutionForm__image" src={image} alt="" />
+			<img className="solutionForm__image" src={image.url} alt="" />
 		</div>
 	);
 };

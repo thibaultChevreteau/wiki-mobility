@@ -17,6 +17,7 @@ export interface Solution {
 	description: string;
 	category: Category;
 	img: string;
+	imgId: string;
 	region: Region;
 	googlePlusCode: string;
 	website?: string;
