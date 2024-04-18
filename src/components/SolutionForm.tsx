@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
-import SolutionContact from "./SolutionContact";
-import { Solution as SolutionType } from "../types";
+import { Region, Solution as SolutionType } from "../types";
 import { useNavigate } from "react-router-dom";
 import { updateSolution } from "../reducers/solutionsReducer";
 import { useAppDispatch } from "../hooks";
 import { useAuth0 } from "@auth0/auth0-react";
+import SolutionContactForm from "./SolutionContactForm";
+import ImageUploader from "./ImageUploader";
 
 interface Props {
 	solution: SolutionType;
@@ -15,6 +16,7 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 	const [name, setName] = useState(solution.name);
 	const [description, setDescription] = useState(solution.description);
 	const [region, setRegion] = useState(solution.region);
+	const [image, setImage] = useState(solution.img);
 	const [authorizedUser, setAuthorizedUser] = useState(true);
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
@@ -65,7 +67,11 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 	};
 
 	const handleRegionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setRegion(e.target.value);
+		setRegion(e.target.value as Region);
+	};
+
+	const handleImageUpload = (image: string) => {
+		setImage(image);
 	};
 
 	const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -95,7 +101,13 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 			});
 			await dispatch(
 				updateSolution(
-					{ ...solution, name: name, description: description, region: region },
+					{
+						...solution,
+						name: name,
+						description: description,
+						region: region,
+						img: image,
+					},
 					accessToken
 				)
 			);
@@ -166,8 +178,6 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 				<label htmlFor="nouvelle-aquitaine">
 					<img src="/nouvelle-aquitaine_badge.svg" alt="Nouvelle-Aquitaine" />
 				</label>
-
-				{/* Render text input for Autre */}
 				<input
 					type="radio"
 					id="autre"
@@ -177,10 +187,6 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 					onChange={handleRegionChange}
 				/>
 				<label htmlFor="autre">Autre Région</label>
-
-				{/* {solution.region !== "autre" ? (
-					<img src={`/${solution.region}_badge.svg`} alt={solution.name} />
-				) : null} */}
 
 				<p className="solutionForm__description">
 					<input
@@ -192,12 +198,16 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 					/>
 				</p>
 				<div className="solutionForm__image-and-map">
-					<img
+					<ImageUploader
+						solution={solution}
+						onImageUpload={handleImageUpload}
+					/>
+					{/* <img
 						className="solutionForm__image"
 						src={solution.img}
 						alt={solution.name}
-					/>
-					<SolutionContact solution={solution} />
+					/> */}
+					<SolutionContactForm solution={solution} />
 				</div>
 				{solution.details ? (
 					<ReactMarkdown className="solutionForm__details">
