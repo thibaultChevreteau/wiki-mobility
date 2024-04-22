@@ -71,13 +71,12 @@ const ImageUploader: React.FC<Props> = ({ solution, onImageUpload }) => {
 	};
 
 	return (
-		<div>
+		<div className="imageUploader__container">
 			<IKContext
 				urlEndpoint={urlEndpoint}
 				publicKey={publicKey}
 				authenticator={authenticator}
 			>
-				<p>Upload an image</p>
 				<IKUpload
 					fileName="solution_image"
 					folder={"/Mobility_Solutions"}
@@ -89,14 +88,16 @@ const ImageUploader: React.FC<Props> = ({ solution, onImageUpload }) => {
 					style={{ display: "none" }}
 					ref={ikUploadRefTest}
 				/>
-				<p>Custom Upload Button</p>
 				{ikUploadRefTest && (
-					<button onClick={() => ikUploadRefTest.current?.click()}>
-						Upload
-					</button>
+					<div
+						className="imageUploader__modify"
+						onClick={() => ikUploadRefTest.current?.click()}
+					>
+						<img src="/camera-add.svg" alt="camera logo to add an image" />
+					</div>
 				)}
 			</IKContext>
-			<img className="solutionForm__image" src={image.url} alt="" />
+			<img className="imageUploader__image" src={image.url} alt="" />
 		</div>
 	);
 };

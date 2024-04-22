@@ -19,11 +19,13 @@ const SolutionContact: React.FC<Props> = ({ solution }) => {
 					src="/contact.svg"
 					alt="envelope"
 				/>
-				{solution.contact ? (
-					<ReactMarkdown>{solution.contact}</ReactMarkdown>
-				) : (
-					<div>Pas d'information renseignée</div>
-				)}
+				<div className="solution-contact__text">
+					{solution.contact ? (
+						<ReactMarkdown>{solution.contact}</ReactMarkdown>
+					) : (
+						<div>Pas d'information renseignée</div>
+					)}
+				</div>
 			</div>
 			{solution.website ? (
 				<div>

@@ -1,4 +1,4 @@
-.solution-contact {
+.solution-contact-form {
 	margin-bottom: $margin-lg;
 	max-width: 450px;
 	height: 300px;
@@ -25,10 +25,12 @@
 		align-items: center;
 		margin: 0 $margin-base;
 		gap: $margin-base;
-	}
 
-	&__text {
-		min-width: 300px;
+		textarea {
+			min-width: 300px;
+			width: 100%;
+			height: 100px;
+		}
 	}
 
 	&__enveloppe {

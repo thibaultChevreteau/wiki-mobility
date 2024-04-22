@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+
+<svg
+   width="49.108376"
+   height="49.108376"
+   viewBox="0 0 4.4197538 4.4197538"
+   id="emoji"
+   version="1.1"
+   sodipodi:docname="cross.svg"
+   inkscape:version="1.3.2 (1:1.3.2+202311252150+091e20ef0f)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs3" />
+  <sodipodi:namedview
+     id="namedview3"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="5.9609102"
+     inkscape:cx="73.981991"
+     inkscape:cy="27.177058"
+     inkscape:window-width="1850"
+     inkscape:window-height="1016"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="emoji" />
+  <g
+     id="color"
+     transform="translate(-11.523701,-21.561702)" />
+  <g
+     id="hair"
+     transform="translate(-11.523701,-21.561702)" />
+  <g
+     id="skin"
+     transform="translate(-11.523701,-21.561702)" />
+  <g
+     id="skin-shadow"
+     transform="translate(-11.523701,-21.561702)" />
+  <rect
+     style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.0508806"
+     id="rect1"
+     width="0.79077685"
+     height="5.9660954"
+     x="-0.39538848"
+     y="0.14219005"
+     ry="0.48111293"
+     transform="rotate(-45)" />
+  <rect
+     style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.0508806"
+     id="rect2"
+     width="0.79077685"
+     height="5.9660954"
+     x="2.7298493"
+     y="-2.9830477"
+     ry="0.48111293"
+     transform="rotate(45)" />
+</svg>

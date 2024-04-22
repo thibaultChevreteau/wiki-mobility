@@ -22,6 +22,11 @@
 		}
 	}
 
+	&__cancel {
+		@extend .solutionForm__modify;
+		bottom: 90px;
+	}
+
 	&__modify:hover {
 		cursor: pointer;
 	}

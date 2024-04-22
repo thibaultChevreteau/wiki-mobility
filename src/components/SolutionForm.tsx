@@ -18,6 +18,9 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 	const [region, setRegion] = useState(solution.region);
 	const [image, setImage] = useState(solution.img);
 	const [imageId, setImageId] = useState(solution.imgId);
+	//const [googlePlusCode, setGooglePlusCode] = useState(solution.googlePlusCode);
+	const [contact, setContact] = useState(solution.contact);
+	//const [website, setWebsite] = useState(solution.website);
 	const [authorizedUser, setAuthorizedUser] = useState(true);
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
@@ -76,6 +79,10 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 		setImageId(image.id);
 	};
 
+	const handleContactChange = (contact: string) => {
+		setContact(contact);
+	};
+
 	const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		await loginWithRedirect({
@@ -111,6 +118,9 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 						region: region,
 						img: image,
 						imgId: imageId,
+						//googlePlusCode: googlePlusCode,
+						contact: contact !== "" ? contact : solution.contact,
+						//website: website,
 					},
 					accessToken
 				)
@@ -131,6 +141,10 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 		} catch (error) {
 			console.log(error);
 		}
+	};
+
+	const handleCancelChange = () => {
+		navigate(`/solutions/${solution.id}`);
 	};
 
 	return (
@@ -159,6 +173,9 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 				)}
 				<div className="solutionForm__modify" onClick={handleValidateChange}>
 					<img src="/tick.svg" alt="modifier la solution" />
+				</div>
+				<div className="solutionForm__cancel" onClick={handleCancelChange}>
+					<img src="/cross.svg" alt="annuler les changements" />
 				</div>
 				<div className="solutionForm__title">
 					<h1>
@@ -218,12 +235,10 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 						solution={solution}
 						onImageUpload={handleImageUpload}
 					/>
-					{/* <img
-						className="solutionForm__image"
-						src={solution.img}
-						alt={solution.name}
-					/> */}
-					<SolutionContactForm solution={solution} />
+					<SolutionContactForm
+						solution={solution}
+						onContactChange={handleContactChange}
+					/>
 				</div>
 				{solution.details ? (
 					<ReactMarkdown className="solutionForm__details">
