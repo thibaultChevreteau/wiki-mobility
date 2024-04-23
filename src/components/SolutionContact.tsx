@@ -1,4 +1,4 @@
-import { useState } from "react";
+//import { useState } from "react";
 import { Solution } from "../types";
 import Map from "./Map";
 import ReactMarkdown from "react-markdown";
@@ -8,7 +8,11 @@ type Props = {
 };
 
 const SolutionContact: React.FC<Props> = ({ solution }) => {
-	const [faviconLoaded, setFaviconLoaded] = useState(true);
+	//const [faviconLoaded, setFaviconLoaded] = useState(true);
+
+	const formattedContact = solution.contact
+		? solution.contact.replace(/\n/g, "  \n")
+		: "";
 
 	return (
 		<div className="solution-contact">
@@ -21,7 +25,7 @@ const SolutionContact: React.FC<Props> = ({ solution }) => {
 				/>
 				<div className="solution-contact__text">
 					{solution.contact ? (
-						<ReactMarkdown>{solution.contact}</ReactMarkdown>
+						<ReactMarkdown>{formattedContact}</ReactMarkdown>
 					) : (
 						<div>Pas d'information renseignée</div>
 					)}
@@ -32,16 +36,16 @@ const SolutionContact: React.FC<Props> = ({ solution }) => {
 					<a className="solution-contact__visit" href={`${solution.website}`}>
 						Visiter le site web
 					</a>
-					{faviconLoaded ? (
+					{/* {faviconLoaded ? (
 						<a href={`${solution.website}`}>
 							<img
 								className="solution-contact__favicon"
-								src={`${solution.website}/favicon.ico`}
+								src={`https://www.google.com/s2/favicons?domain=${solution.website}`}
 								alt="solution favicon"
 								onError={() => setFaviconLoaded(false)}
 							/>
 						</a>
-					) : null}
+					) : null} */}
 				</div>
 			) : (
 				<div></div>

@@ -5,15 +5,24 @@ import { Solution as SolutionType } from "../types";
 
 interface Props {
 	solution: SolutionType;
-	onImageUpload: (image: { url: string; id: string }) => void;
+	onImageUpload: (image: {
+		url: string;
+		id: string;
+		modified: boolean;
+	}) => void;
 }
 
 const ImageUploader: React.FC<Props> = ({ solution, onImageUpload }) => {
 	const ikUploadRefTest = useRef<HTMLInputElement>(null);
 	const { getAccessTokenSilently } = useAuth0();
-	const [image, setImage] = useState<{ url: string; id: string }>({
+	const [image, setImage] = useState<{
+		url: string;
+		id: string;
+		modified: boolean;
+	}>({
 		url: solution.img,
 		id: solution.imgId,
+		modified: false,
 	});
 	const urlEndpoint = "https://ik.imagekit.io/vndkxhhge";
 	const publicKey = "public_051SlpoQfkOCqK4JT5TL6dOyFQQ=";
@@ -26,7 +35,7 @@ const ImageUploader: React.FC<Props> = ({ solution, onImageUpload }) => {
 				},
 			});
 
-			const response = await fetch("http://localhost:3000/imagekit", {
+			const response = await fetch("/api/imagekit", {
 				method: "GET",
 				headers: {
 					Authorization: `Bearer ${accessToken}`,
@@ -66,8 +75,12 @@ const ImageUploader: React.FC<Props> = ({ solution, onImageUpload }) => {
 	const onSuccess = async (res: unknown) => {
 		const uploadedImageUrl = (res as { url: string }).url;
 		const uploadedImageId = (res as { fileId: string }).fileId;
-		setImage({ url: uploadedImageUrl, id: uploadedImageId });
-		onImageUpload({ url: uploadedImageUrl, id: uploadedImageId });
+		setImage({ url: uploadedImageUrl, id: uploadedImageId, modified: true });
+		onImageUpload({
+			url: uploadedImageUrl,
+			id: uploadedImageId,
+			modified: true,
+		});
 	};
 
 	return (

@@ -114,15 +114,9 @@
 	}
 
 	&__details {
-		h1,
-		h2,
-		h3,
-		h4,
-		h5,
-		h6 {
-			border-bottom: 1px solid $border-color;
-			margin-top: $margin-lg;
-		}
+		width: 100%;
+		height: auto;
+		resize: vertical;
 	}
 }
 

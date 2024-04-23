@@ -13,6 +13,10 @@ const Solution: React.FC<Props> = ({ solution }) => {
 		window.scrollTo(0, 0);
 	}, []);
 
+	const formattedDetails = solution.details
+		? solution.details.replace(/\n/g, "  \n")
+		: "";
+
 	return (
 		<div>
 			<div className="solution">
@@ -38,7 +42,7 @@ const Solution: React.FC<Props> = ({ solution }) => {
 				</div>
 				{solution.details ? (
 					<ReactMarkdown className="solution__details">
-						{solution.details}
+						{formattedDetails}
 					</ReactMarkdown>
 				) : null}
 			</div>
