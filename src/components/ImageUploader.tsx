@@ -1,10 +1,10 @@
 import { IKContext, IKUpload } from "imagekitio-react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useRef, useState } from "react";
-import { Solution as SolutionType } from "../types";
+import { NewSolution, Solution as SolutionType } from "../types";
 
 interface Props {
-	solution: SolutionType;
+	solution: SolutionType | NewSolution;
 	onImageUpload: (image: {
 		url: string;
 		id: string;

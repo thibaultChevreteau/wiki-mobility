@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Region, Solution as SolutionType } from "../types";
+import {
+	Category,
+	NewSolution,
+	Region,
+	Solution as SolutionType,
+} from "../types";
 import { useNavigate } from "react-router-dom";
-import { updateSolution } from "../reducers/solutionsReducer";
+import { updateSolution, addNewSolution } from "../reducers/solutionsReducer";
 import { useAppDispatch } from "../hooks";
 import { useAuth0 } from "@auth0/auth0-react";
 import SolutionContactForm from "./SolutionContactForm";
@@ -22,14 +27,15 @@ function countOccurrences(string: string, substring: string) {
 }
 
 interface Props {
-	solution: SolutionType;
+	solution: SolutionType | NewSolution;
 }
 
 const SolutionForm: React.FC<Props> = ({ solution }) => {
 	const solutionDetailsPlaceHolder =
-		"Utilisez la syntaxe MarkDown pour mettre en forme votre texte\nSautez une ligne pour séparer les paragraphes\n\n#Titre\nVotre texte de description\n\n##Sous-titre\nExemple de liste :\n* Item 1\n* Item 2\n* Item 3\n\n##Exemple de lien url :\n[Texte de mon lien](https://monlien.fr)";
+		"Utilisez la syntaxe MarkDown pour mettre en forme votre texte\n\n#Titre\nVotre texte de description\n\n##Sous-titre\nExemple de liste :\n* Item 1\n* Item 2\n* Item 3\n\n##Exemple de lien url :\n[Texte de mon lien](https://monlien.fr)";
 	const [name, setName] = useState(solution.name);
 	const [description, setDescription] = useState(solution.description);
+	const [category, setCategory] = useState(solution.category);
 	const [region, setRegion] = useState(solution.region);
 	const [image, setImage] = useState(solution.img);
 	const [imageId, setImageId] = useState(solution.imgId);
@@ -87,6 +93,10 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 		setDescription(e.target.value);
 	};
 
+	const handleCategoryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setCategory(e.target.value as Category);
+	};
+
 	const handleRegionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setRegion(e.target.value as Region);
 	};
@@ -119,9 +129,13 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 
 	const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
+		const redirectUrl: string =
+			"id" in solution
+				? `/solutions/${solution.id}/edit`
+				: "/nouvelle-solution";
 		await loginWithRedirect({
 			appState: {
-				returnTo: `/solutions/${solution.id}/edit`,
+				returnTo: redirectUrl,
 			},
 			authorizationParams: {
 				prompt: "login",
@@ -143,12 +157,36 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 				},
 			});
 
-			await dispatch(
-				updateSolution(
-					{
-						...solution,
+			if ("id" in solution) {
+				await dispatch(
+					updateSolution(
+						{
+							...solution,
+							name: name,
+							description: description,
+							category: category,
+							region: region,
+							img: image,
+							imgId: imageId,
+							googlePlusCode: googlePlusCode,
+							contact: contact !== "" ? contact : solution.contact,
+							website: website !== "" ? website : solution.website,
+							details: details !== "" ? details : solution.details,
+						},
+						accessToken
+					)
+				);
+				navigate(`/solutions/${solution.id}`);
+			} else {
+				if (image === "/default_image.png") {
+					alert("Merci d'importer une image");
+				} else {
+					console.log(category);
+
+					const newSolution = {
 						name: name,
 						description: description,
+						category: category,
 						region: region,
 						img: image,
 						imgId: imageId,
@@ -156,15 +194,14 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 						contact: contact !== "" ? contact : solution.contact,
 						website: website !== "" ? website : solution.website,
 						details: details !== "" ? details : solution.details,
-					},
-					accessToken
-				)
-			);
-			navigate(`/solutions/${solution.id}`);
+					};
+					const newSolutionWithId = await dispatch(
+						addNewSolution(newSolution, accessToken)
+					);
+					navigate(`/solutions/${newSolutionWithId.id}`);
+				}
+			}
 
-			//////////////////////////////
-			// Add a condition here ! Do not delete default image ! //
-			///////////////////////////////
 			if (imageModified) {
 				await fetch(`/api/imagekit/${solution.imgId}`, {
 					method: "DELETE",
@@ -180,14 +217,18 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 	};
 
 	const handleCancelChange = () => {
-		navigate(`/solutions/${solution.id}`);
+		if ("id" in solution) {
+			navigate(`/solutions/${solution.id}`);
+		} else {
+			navigate(`/`);
+		}
 	};
 
 	const newlineCount = solution.details
 		? countOccurrences(solution.details, "\n")
 		: countOccurrences(solutionDetailsPlaceHolder, "\n");
 	const textareaStyle = {
-		height: `${newlineCount * 17}px`,
+		height: `${newlineCount * 18}px`,
 	};
 
 	const handleInput: React.FormEventHandler<HTMLTextAreaElement> = (event) => {
@@ -233,50 +274,91 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 							type="text"
 							value={name}
 							onChange={handleTitleChange}
-							placeholder={solution.name}
+							placeholder="Nom de la solution"
 							required
 						/>
 					</h1>
 				</div>
-				<input
-					type="radio"
-					id="occitanie"
-					name="region"
-					value="occitanie"
-					checked={region === "occitanie"}
-					onChange={handleRegionChange}
-				/>
-				<label htmlFor="occitanie">
-					<img src="/occitanie_badge.svg" alt="Occitanie" />
-				</label>
 
-				<input
-					type="radio"
-					id="nouvelle-aquitaine"
-					name="region"
-					value="nouvelle-aquitaine"
-					checked={region === "nouvelle-aquitaine"}
-					onChange={handleRegionChange}
-				/>
-				<label htmlFor="nouvelle-aquitaine">
-					<img src="/nouvelle-aquitaine_badge.svg" alt="Nouvelle-Aquitaine" />
-				</label>
-				<input
-					type="radio"
-					id="autre"
-					name="region"
-					value="autre"
-					checked={region === "autre"}
-					onChange={handleRegionChange}
-				/>
-				<label htmlFor="autre">Autre Région</label>
+				<div>
+					<input
+						type="radio"
+						id="Aménagement"
+						name="category"
+						value="Aménagement"
+						checked={category === "Aménagement"}
+						onChange={handleCategoryChange}
+					/>
+					<label htmlFor="Aménagement">Aménagement</label>
+					<input
+						type="radio"
+						id="Matériel"
+						name="category"
+						value="Matériel"
+						checked={category === "Matériel"}
+						onChange={handleCategoryChange}
+					/>
+					<label htmlFor="Matériel">Matériel</label>
+					<input
+						type="radio"
+						id="Sensibilisation"
+						name="category"
+						value="Sensibilisation"
+						checked={category === "Sensibilisation"}
+						onChange={handleCategoryChange}
+					/>
+					<label htmlFor="Sensibilisation">Sensibilisation</label>
+					<input
+						type="radio"
+						id="Autre"
+						name="category"
+						value="Autre"
+						checked={category === "Autre"}
+						onChange={handleCategoryChange}
+					/>
+					<label htmlFor="Autre">Autre catégorie</label>
+				</div>
+
+				<div>
+					<input
+						type="radio"
+						id="occitanie"
+						name="region"
+						value="occitanie"
+						checked={region === "occitanie"}
+						onChange={handleRegionChange}
+					/>
+					<label htmlFor="occitanie">
+						<img src="/occitanie_badge.svg" alt="Occitanie" />
+					</label>
+					<input
+						type="radio"
+						id="nouvelle-aquitaine"
+						name="region"
+						value="nouvelle-aquitaine"
+						checked={region === "nouvelle-aquitaine"}
+						onChange={handleRegionChange}
+					/>
+					<label htmlFor="nouvelle-aquitaine">
+						<img src="/nouvelle-aquitaine_badge.svg" alt="Nouvelle-Aquitaine" />
+					</label>
+					<input
+						type="radio"
+						id="autre"
+						name="region"
+						value="autre"
+						checked={region === "autre"}
+						onChange={handleRegionChange}
+					/>
+					<label htmlFor="autre">Autre Région</label>
+				</div>
 
 				<p className="solutionForm__description">
 					<input
 						type="text"
 						value={description}
 						onChange={handleDescriptionChange}
-						placeholder={solution.description}
+						placeholder="Courte description de la solution"
 						required
 					/>
 				</p>

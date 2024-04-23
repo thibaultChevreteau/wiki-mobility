@@ -7,8 +7,14 @@ const getAll = () => {
 	return request.then((response) => response.data);
 };
 
-const addNew = async (object: NewSolution) => {
-	const { data } = await axios.post<Solution>(`${apiBaseUrl}`, object);
+const addNew = async (object: NewSolution, accessToken: string) => {
+	const config = {
+		headers: {
+			Authorization: `Bearer ${accessToken}`,
+		},
+	};
+
+	const { data } = await axios.post<Solution>(`${apiBaseUrl}`, object, config);
 
 	return data;
 };

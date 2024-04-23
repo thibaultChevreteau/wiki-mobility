@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Solution } from "../types";
+import { NewSolution, Solution as SolutionType } from "../types";
 import Map from "./Map";
 
 type Props = {
-	solution: Solution;
+	solution: SolutionType | NewSolution;
 	onContactChange: (contact: string) => void;
 	onWebsiteChange: (website: string) => void;
 	onGooglePlusCodeChange: (googlePlusCode: string) => void;

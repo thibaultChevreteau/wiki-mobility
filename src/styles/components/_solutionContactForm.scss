@@ -44,14 +44,7 @@
 		margin: 0 50% $margin-sm $margin-base;
 		padding: 3px;
 		border-radius: 4px; /* Add border radius */
-		color: white;
-		background-color: $primary-color; /* Add background color */
 		text-decoration: none;
-
-		&:hover {
-			background-color: $secondary-color;
-			color: white;
-		}
 	}
 
 	&__googlePlusCode {

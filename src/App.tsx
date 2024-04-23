@@ -11,8 +11,19 @@ import { useEffect } from "react";
 import { setSolutions } from "./reducers/solutionsReducer";
 import NotFound from "./components/NotFound";
 import SolutionForm from "./components/SolutionForm";
+import { Category, NewSolution, Region } from "./types";
 
 const App = () => {
+	const defaultSolution: NewSolution = {
+		name: "",
+		description: "",
+		category: Category.Other,
+		img: "/default_image.png",
+		imgId: "",
+		region: Region.Other,
+		googlePlusCode: "W4PR+PC Sers",
+	};
+
 	const dispatch = useAppDispatch();
 	const solutions = useAppSelector((state) => state.solutions);
 
@@ -60,6 +71,10 @@ const App = () => {
 							<NotFound />
 						)
 					}
+				/>
+				<Route
+					path="/nouvelle-solution"
+					element={<SolutionForm solution={defaultSolution} />}
 				/>
 				<Route path="*" element={<NotFound />} />
 			</Routes>

@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import solutionsService from "../services/solution";
 import { Dispatch } from "redux";
-import { RootState } from "../store"; // Import RootState type
-import { Solution } from "../types";
+import { RootState } from "../store";
+import { NewSolution, Solution } from "../types";
 
 const solutionSlice = createSlice({
 	name: "solutions",
@@ -11,9 +11,12 @@ const solutionSlice = createSlice({
 		set(_state, action: PayloadAction<Solution[]>) {
 			return action.payload;
 		},
+		addNew(state, action: PayloadAction<Solution>) {
+			return [...state, action.payload];
+		},
 		update(state, action: PayloadAction<Solution>) {
 			const updatedSolution = action.payload;
-			const updatedSolutions = state.map((solution) =>
+			const updatedSolutions = state.map((solution: Solution) =>
 				solution.id === updatedSolution.id ? updatedSolution : solution
 			);
 			return updatedSolutions;
@@ -21,7 +24,7 @@ const solutionSlice = createSlice({
 	},
 });
 
-export const { set, update } = solutionSlice.actions;
+export const { set, update, addNew } = solutionSlice.actions;
 
 export const setSolutions = () => {
 	return async (dispatch: Dispatch, _getState: () => RootState) => {
@@ -30,10 +33,21 @@ export const setSolutions = () => {
 	};
 };
 
+export const addNewSolution = (object: NewSolution, accessToken: string) => {
+	return async (dispatch: Dispatch) => {
+		const newSolutionWithId = await solutionsService.addNew(
+			object,
+			accessToken
+		);
+		dispatch(addNew(newSolutionWithId));
+		return newSolutionWithId;
+	};
+};
+
 export const updateSolution = (object: Solution, accessToken: string) => {
 	return async (dispatch: Dispatch) => {
-		const solution = await solutionsService.update(object, accessToken);
-		dispatch(update(solution));
+		const updatedSolution = await solutionsService.update(object, accessToken);
+		dispatch(update(updatedSolution));
 	};
 };
 
