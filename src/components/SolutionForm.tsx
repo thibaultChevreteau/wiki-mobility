@@ -52,8 +52,6 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 		}
 	};
 
-	console.log(solution.details);
-
 	useEffect(() => {
 		const checkScope = async () => {
 			if (isAuthenticated) {

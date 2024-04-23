@@ -13,6 +13,10 @@ interface Props {
 }
 
 const ImageUploader: React.FC<Props> = ({ solution, onImageUpload }) => {
+	const folder =
+		process.env.NODE_ENV === "production"
+			? "/Mobility_Solutions"
+			: "/Mobility_Solutions_Dev";
 	const ikUploadRefTest = useRef<HTMLInputElement>(null);
 	const { getAccessTokenSilently } = useAuth0();
 	const [image, setImage] = useState<{
@@ -92,7 +96,7 @@ const ImageUploader: React.FC<Props> = ({ solution, onImageUpload }) => {
 			>
 				<IKUpload
 					fileName="solution_image"
-					folder={"/Mobility_Solutions"}
+					folder={folder}
 					validateFile={(file) => file.size < 1000000}
 					onError={onError}
 					onSuccess={onSuccess}

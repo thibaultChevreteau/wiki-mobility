@@ -53,3 +53,9 @@
 		}
 	}
 }
+
+@media screen and (max-width: $breakpoint-md) {
+	.solution-contact__text {
+		min-width: 220px;
+	}
+}
