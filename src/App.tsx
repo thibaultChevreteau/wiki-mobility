@@ -12,6 +12,7 @@ import { setSolutions } from "./reducers/solutionsReducer";
 import NotFound from "./components/NotFound";
 import SolutionForm from "./components/SolutionForm";
 import { Category, NewSolution, Region } from "./types";
+import About from "./components/About";
 
 const App = () => {
 	const defaultSolution: NewSolution = {
@@ -62,6 +63,7 @@ const App = () => {
 						)
 					}
 				/>
+				<Route path="/a-propos" element={<About />} />
 				<Route
 					path="/solutions/:id/edit"
 					element={

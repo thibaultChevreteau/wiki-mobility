@@ -368,7 +368,9 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 						onImageUpload={handleImageUpload}
 					/>
 					<SolutionContactForm
-						solution={solution}
+						contact={contact ?? ""}
+						website={website ?? ""}
+						googlePlusCode={googlePlusCode}
 						onContactChange={handleContactChange}
 						onWebsiteChange={handleWebsiteChange}
 						onGooglePlusCodeChange={handleGooglePlusCodeChange}

@@ -27,7 +27,7 @@ const NavBar = () => {
 						Solutions
 					</NavLink>
 					<NavLink
-						to="/about"
+						to="/a-propos"
 						className="nav__links__link"
 						onClick={closeNavbar}
 					>

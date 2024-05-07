@@ -1,41 +1,22 @@
-import { useState } from "react";
-import { NewSolution, Solution as SolutionType } from "../types";
 import Map from "./Map";
 
 type Props = {
-	solution: SolutionType | NewSolution;
+	contact: string;
+	website: string;
+	googlePlusCode: string;
 	onContactChange: (contact: string) => void;
 	onWebsiteChange: (website: string) => void;
 	onGooglePlusCodeChange: (googlePlusCode: string) => void;
 };
 
 const SolutionContactForm: React.FC<Props> = ({
-	solution,
+	contact,
+	website,
+	googlePlusCode,
 	onContactChange,
 	onWebsiteChange,
 	onGooglePlusCodeChange,
 }) => {
-	const [contact, setContact] = useState(solution.contact || "");
-	const [website, setWebsite] = useState(solution.website || "");
-	const [googlePlusCode, setGooglePlusCode] = useState(solution.googlePlusCode);
-
-	const handleContactChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-		setContact(e.target.value);
-		onContactChange(e.target.value);
-	};
-
-	const handleWebsiteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setWebsite(e.target.value);
-		onWebsiteChange(e.target.value);
-	};
-
-	const handleGooglePlusCodeChange = (
-		e: React.ChangeEvent<HTMLInputElement>
-	) => {
-		setGooglePlusCode(e.target.value);
-		onGooglePlusCodeChange(e.target.value);
-	};
-
 	return (
 		<div className="solution-contact-form">
 			<Map plusCode={googlePlusCode} />
@@ -47,7 +28,7 @@ const SolutionContactForm: React.FC<Props> = ({
 				/>
 				<textarea
 					value={contact}
-					onChange={handleContactChange}
+					onChange={(e) => onContactChange(e.target.value)}
 					placeholder={contact}
 					required
 				/>
@@ -57,7 +38,7 @@ const SolutionContactForm: React.FC<Props> = ({
 					className="solution-contact-form__website"
 					type="text"
 					value={website}
-					onChange={handleWebsiteChange}
+					onChange={(e) => onWebsiteChange(e.target.value)}
 					placeholder="adresse site web"
 					required
 				/>
@@ -67,7 +48,7 @@ const SolutionContactForm: React.FC<Props> = ({
 					className="solution-contact-form__googlePlusCode"
 					type="text"
 					value={googlePlusCode}
-					onChange={handleGooglePlusCodeChange}
+					onChange={(e) => onGooglePlusCodeChange(e.target.value)}
 					placeholder="Google Plus Code"
 					required
 				/>
