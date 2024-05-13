@@ -286,37 +286,55 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 						id="Aménagement"
 						name="category"
 						value="Aménagement"
-						checked={category === "Aménagement"}
+						checked={category === "AMÉNAGEMENT"}
 						onChange={handleCategoryChange}
 					/>
-					<label htmlFor="Aménagement">Aménagement</label>
+					<label htmlFor="Aménagement">AMÉNAGEMENT</label>
 					<input
 						type="radio"
 						id="Matériel"
 						name="category"
 						value="Matériel"
-						checked={category === "Matériel"}
+						checked={category === "VÉHICULE"}
 						onChange={handleCategoryChange}
 					/>
-					<label htmlFor="Matériel">Matériel</label>
+					<label htmlFor="Matériel">VÉHICULE</label>
 					<input
 						type="radio"
 						id="Sensibilisation"
 						name="category"
 						value="Sensibilisation"
-						checked={category === "Sensibilisation"}
+						checked={category === "SENSIBILISATION"}
 						onChange={handleCategoryChange}
 					/>
-					<label htmlFor="Sensibilisation">Sensibilisation</label>
+					<label htmlFor="Sensibilisation">SENSIBILISATION</label>
+					<input
+						type="radio"
+						id="Application"
+						name="category"
+						value="Application"
+						checked={category === "APPLICATION"}
+						onChange={handleCategoryChange}
+					/>
+					<label htmlFor="Application">APPLICATION</label>
+					<input
+						type="radio"
+						id="Ateliers"
+						name="category"
+						value="Ateliers"
+						checked={category === "ATELIER"}
+						onChange={handleCategoryChange}
+					/>
+					<label htmlFor="Ateliers">ATELIER</label>
 					<input
 						type="radio"
 						id="Autre"
 						name="category"
 						value="Autre"
-						checked={category === "Autre"}
+						checked={category === "AUTRE"}
 						onChange={handleCategoryChange}
 					/>
-					<label htmlFor="Autre">Autre catégorie</label>
+					<label htmlFor="Autre">AUTRE</label>
 				</div>
 
 				<div>

@@ -7,6 +7,8 @@ interface Props {
 }
 
 const Solutions: React.FC<Props> = ({ solutions }) => {
+	const reversedSolutions = [...solutions].reverse();
+
 	return (
 		<div className="presentation">
 			<h1 className="presentation__title">Solutions de mobilité</h1>
@@ -14,7 +16,7 @@ const Solutions: React.FC<Props> = ({ solutions }) => {
 				Catalogue de solutions innovantes et durables
 			</p>
 			<div className="solution-container">
-				{solutions.map((solution) => (
+				{reversedSolutions.map((solution) => (
 					<div className="solution-card" key={solution.id}>
 						<Link
 							to={`/solutions/${solution.id}`}
@@ -26,22 +28,23 @@ const Solutions: React.FC<Props> = ({ solutions }) => {
 								alt={solution.name}
 							/>
 							<div className="solution-card__content">
+								<div className="solution-card__content__category">
+									{solution.category}
+								</div>
 								<div className="solution-card__content__title">
 									{solution.name}
 								</div>
 								<p className="solution-card__content__description">
 									{solution.description}
 								</p>
-								<div className="solution-card__content__category">
-									{solution.category}
-								</div>
+
 								{solution.region !== "autre" ? (
 									<img
 										className="solution-card__badge"
 										src={`/${solution.region}_badge.svg`}
 										alt={solution.name}
 										data-tooltip-id="my-tooltip"
-										data-tooltip-content={solution.region} // Set the tooltip text here
+										data-tooltip-content={solution.region}
 									/>
 								) : null}
 							</div>

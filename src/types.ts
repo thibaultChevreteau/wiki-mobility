@@ -1,8 +1,10 @@
 export enum Category {
-	Amenagement = "Aménagement",
-	Materiel = "Matériel",
-	Sensibilisation = "Sensibilisation",
-	Other = "Autre",
+	Amenagement = "AMÉNAGEMENT",
+	Vehicule = "VÉHICULE",
+	Application = "APPLICATION",
+	Sensibilisation = "SENSIBILISATION",
+	Ateliers = "ATELIER",
+	Other = "AUTRE",
 }
 
 export enum Region {
