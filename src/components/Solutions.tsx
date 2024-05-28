@@ -1,13 +1,38 @@
 import { Link } from "react-router-dom";
 import { Solution } from "../types";
 import { Tooltip } from "react-tooltip";
+import { useState } from "react";
+import Filter from "./Filter";
 
 interface Props {
 	solutions: Solution[];
 }
 
 const Solutions: React.FC<Props> = ({ solutions }) => {
-	const reversedSolutions = [...solutions].reverse();
+	//const reversedSolutions = [...solutions].reverse();
+	const [filters, setFilters] = useState({ category: "", region: "" });
+
+	const handleFilterChange = (newFilters: {
+		category: string;
+		region: string;
+	}) => {
+		setFilters(newFilters);
+	};
+
+	const filteredSolutions = solutions
+		.filter(
+			(solution) =>
+				(filters.category === "" || solution.category === filters.category) &&
+				(filters.region === "" || solution.region === filters.region)
+		)
+		.reverse();
+
+	const categories = Array.from(
+		new Set(solutions.map((solution) => solution.category))
+	);
+	const regions = Array.from(
+		new Set(solutions.map((solution) => solution.region))
+	);
 
 	return (
 		<div className="presentation">
@@ -15,8 +40,13 @@ const Solutions: React.FC<Props> = ({ solutions }) => {
 			<p className="presentation__description">
 				Catalogue de solutions innovantes et durables
 			</p>
+			<Filter
+				categories={categories}
+				regions={regions}
+				onFilterChange={handleFilterChange}
+			/>
 			<div className="solution-container">
-				{reversedSolutions.map((solution) => (
+				{filteredSolutions.map((solution) => (
 					<div className="solution-card" key={solution.id}>
 						<Link
 							to={`/solutions/${solution.id}`}

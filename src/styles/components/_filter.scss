@@ -1,0 +1,33 @@
+.filter {
+	display: flex;
+	margin-bottom: $margin-lg;
+	font-family: $heading-font-family;
+	color: $title-font-color;
+
+	&__group {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: $margin-sm;
+
+		label {
+			font-weight: bold;
+		}
+
+		select {
+			padding: $padding-sm;
+			border-radius: $border-radius-sm;
+			border: 1px solid #ccc;
+			font-family: $body-font-family;
+			font-size: $base-font-size;
+			background-color: #fff;
+			color: $body-font-color;
+		}
+	}
+
+	@media screen and (max-width: $breakpoint-md) {
+		&__group {
+			flex-direction: column;
+		}
+	}
+}
