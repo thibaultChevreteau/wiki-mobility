@@ -340,25 +340,28 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 				<div>
 					<input
 						type="radio"
-						id="occitanie"
+						id="hautes-pyrenees"
 						name="region"
-						value="occitanie"
-						checked={region === "occitanie"}
+						value="hautes-pyrenees"
+						checked={region === "hautes-pyrenees"}
 						onChange={handleRegionChange}
 					/>
-					<label htmlFor="occitanie">
-						<img src="/occitanie_badge.svg" alt="Occitanie" />
+					<label htmlFor="hautes-pyrenees">
+						<img src="/hautes-pyrenees_badge.svg" alt="Occitanie" />
 					</label>
 					<input
 						type="radio"
-						id="nouvelle-aquitaine"
+						id="pyrenees-atlantiques"
 						name="region"
-						value="nouvelle-aquitaine"
-						checked={region === "nouvelle-aquitaine"}
+						value="pyrenees-atlantiques"
+						checked={region === "pyrenees-atlantiques"}
 						onChange={handleRegionChange}
 					/>
-					<label htmlFor="nouvelle-aquitaine">
-						<img src="/nouvelle-aquitaine_badge.svg" alt="Nouvelle-Aquitaine" />
+					<label htmlFor="pyrenees-atlantiques">
+						<img
+							src="/pyrenees-atlantiques_badge.svg"
+							alt="Nouvelle-Aquitaine"
+						/>
 					</label>
 					<input
 						type="radio"
