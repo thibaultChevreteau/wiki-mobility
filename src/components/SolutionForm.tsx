@@ -283,58 +283,58 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 				<div>
 					<input
 						type="radio"
-						id="Aménagement"
+						id="AMÉNAGEMENT"
 						name="category"
-						value="Aménagement"
+						value="AMÉNAGEMENT"
 						checked={category === "AMÉNAGEMENT"}
 						onChange={handleCategoryChange}
 					/>
-					<label htmlFor="Aménagement">AMÉNAGEMENT</label>
+					<label htmlFor="AMÉNAGEMENT">AMÉNAGEMENT</label>
 					<input
 						type="radio"
-						id="Matériel"
+						id="VÉHICULE"
 						name="category"
-						value="Matériel"
+						value="VÉHICULE"
 						checked={category === "VÉHICULE"}
 						onChange={handleCategoryChange}
 					/>
-					<label htmlFor="Matériel">VÉHICULE</label>
+					<label htmlFor="VÉHICULE">VÉHICULE</label>
 					<input
 						type="radio"
-						id="Sensibilisation"
+						id="SENSIBILISATION"
 						name="category"
-						value="Sensibilisation"
+						value="SENSIBILISATION"
 						checked={category === "SENSIBILISATION"}
 						onChange={handleCategoryChange}
 					/>
-					<label htmlFor="Sensibilisation">SENSIBILISATION</label>
+					<label htmlFor="SENSIBILISATION">SENSIBILISATION</label>
 					<input
 						type="radio"
-						id="Application"
+						id="APPLICATION"
 						name="category"
-						value="Application"
+						value="APPLICATION"
 						checked={category === "APPLICATION"}
 						onChange={handleCategoryChange}
 					/>
-					<label htmlFor="Application">APPLICATION</label>
+					<label htmlFor="APPLICATION">APPLICATION</label>
 					<input
 						type="radio"
-						id="Ateliers"
+						id="ATELIER"
 						name="category"
-						value="Ateliers"
+						value="ATELIER"
 						checked={category === "ATELIER"}
 						onChange={handleCategoryChange}
 					/>
-					<label htmlFor="Ateliers">ATELIER</label>
+					<label htmlFor="ATELIER">ATELIER</label>
 					<input
 						type="radio"
-						id="Autre"
+						id="AUTRE"
 						name="category"
-						value="Autre"
+						value="AUTRE"
 						checked={category === "AUTRE"}
 						onChange={handleCategoryChange}
 					/>
-					<label htmlFor="Autre">AUTRE</label>
+					<label htmlFor="AUTRE">AUTRE</label>
 				</div>
 
 				<div>
