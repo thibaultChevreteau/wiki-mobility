@@ -87,7 +87,7 @@
 		position: absolute;
 		background: white;
 		top: 100%;
-		left: -200px;
+		left: -170px;
 		border: 1px solid $border-color;
 		border-radius: $border-radius-lg;
 		max-height: 150px;
@@ -100,6 +100,8 @@
 			padding: 5px;
 			list-style: none;
 			margin-top: 2px;
+			margin-right: 10px;
+			margin-bottom: 2px;
 
 			&:hover {
 				background: #f0f0f0;
@@ -141,6 +143,11 @@
 		position: absolute;
 		top: 1.2rem;
 		right: 0.5rem;
+	}
+
+	.nav__search-results {
+		left: 50%;
+		transform: translate(-50%, 0);
 	}
 }
 
