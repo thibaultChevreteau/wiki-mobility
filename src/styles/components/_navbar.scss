@@ -52,6 +52,8 @@
 	}
 
 	&__form {
+		position: relative;
+
 		&__input {
 			padding: $padding-sm;
 			border: 1px solid $border-color;
@@ -78,6 +80,42 @@
 			position: absolute;
 			top: 1rem;
 			right: 1.5rem;
+		}
+	}
+
+	&__search-results {
+		position: absolute;
+		background: white;
+		top: 100%;
+		left: -200px;
+		border: 1px solid $border-color;
+		border-radius: $border-radius-lg;
+		max-height: 150px;
+		overflow-y: auto;
+		width: 360px;
+		scrollbar-width: thin;
+		padding-left: 10px;
+
+		li {
+			padding: 5px;
+			list-style: none;
+			margin-top: 2px;
+
+			&:hover {
+				background: #f0f0f0;
+				border: 1px solid $border-color;
+				border-radius: $border-radius-lg;
+			}
+
+			a {
+				text-decoration: none;
+				color: black;
+			}
+
+			h4 {
+				font-family: $heading-font-family;
+				margin: 0;
+			}
 		}
 	}
 }

@@ -50,7 +50,7 @@ const App = () => {
 
 	return (
 		<div>
-			<NavBar />
+			<NavBar solutions={solutions} />
 			<Routes>
 				<Route path="/" element={<Solutions solutions={solutions} />} />
 				<Route

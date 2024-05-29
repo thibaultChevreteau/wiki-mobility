@@ -1,8 +1,15 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
+import { Solution as SolutionType } from "../types";
 
-const NavBar = () => {
+interface Props {
+	solutions: SolutionType[];
+}
+
+const NavBar: React.FC<Props> = ({ solutions }) => {
 	const [showMenu, setShowMenu] = useState(false);
+	const [searchQuery, setSearchQuery] = useState("");
+	const [searchResults, setSearchResults] = useState<SolutionType[]>([]);
 
 	const toggleMenu = () => {
 		setShowMenu(!showMenu);
@@ -10,6 +17,26 @@ const NavBar = () => {
 
 	const closeNavbar = () => {
 		setShowMenu(false);
+	};
+
+	const handleSearch = (query: string) => {
+		setSearchQuery(query);
+		if (query.length > 0) {
+			const filtered = solutions.filter(
+				(solution) =>
+					solution.name.toLowerCase().includes(query.toLowerCase()) ||
+					solution.description.toLowerCase().includes(query.toLowerCase())
+			);
+			setSearchResults(filtered);
+		} else {
+			setSearchResults([]);
+		}
+	};
+
+	const handleSolutionClick = () => {
+		setSearchQuery("");
+		setSearchResults([]);
+		closeNavbar();
 	};
 
 	return (
@@ -45,13 +72,47 @@ const NavBar = () => {
 						/>{" "}
 						Nouvelle solution
 					</NavLink>
-					<form className="nav__form">
+					<div className="nav__form">
 						<input
 							type="text"
 							placeholder="Rechercher..."
 							className="nav__form__input"
+							value={searchQuery}
+							onChange={(e) => handleSearch(e.target.value)}
 						/>
-					</form>
+						{searchResults.length > 0 && (
+							<ul className="nav__search-results">
+								{searchResults.map((result) => {
+									const truncateDescription = (
+										description: string,
+										maxLength: number
+									) => {
+										if (description.length <= maxLength) return description;
+										const truncated = description.slice(0, maxLength);
+										const lastSpaceIndex = truncated.lastIndexOf(" ");
+										return lastSpaceIndex > 0
+											? `${truncated.slice(0, lastSpaceIndex)}...`
+											: `${truncated}...`;
+									};
+
+									return (
+										<li key={result.id}>
+											<NavLink
+												to={`/solutions/${result.id}`}
+												onClick={() => {
+													handleSolutionClick();
+													closeNavbar();
+												}}
+											>
+												<h4>{result.name}</h4>
+												{truncateDescription(result.description, 50)}
+											</NavLink>
+										</li>
+									);
+								})}
+							</ul>
+						)}
+					</div>
 					<div className="nav__close" onClick={toggleMenu}>
 						<img src="/cross-menu.svg" alt="Brand Logo" className="nav__logo" />
 					</div>
