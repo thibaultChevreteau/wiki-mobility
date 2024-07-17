@@ -40,7 +40,7 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 	const [image, setImage] = useState(solution.img);
 	const [imageId, setImageId] = useState(solution.imgId);
 	const [imageModified, setImageModified] = useState(false);
-	const [googlePlusCode, setGooglePlusCode] = useState(solution.googlePlusCode);
+	const [coordinates, setCoordinates] = useState(solution.coordinates);
 	const [contact, setContact] = useState(solution.contact);
 	const [website, setWebsite] = useState(solution.website);
 	const [details, setDetails] = useState(solution.details);
@@ -119,8 +119,8 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 		setWebsite(website);
 	};
 
-	const handleGooglePlusCodeChange = (googlePlusCode: string) => {
-		setGooglePlusCode(googlePlusCode);
+	const handleCoordinatesChange = (coordinates: [number, number]) => {
+		setCoordinates(coordinates);
 	};
 
 	const handleDetailsChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -168,7 +168,7 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 							region: region,
 							img: image,
 							imgId: imageId,
-							googlePlusCode: googlePlusCode,
+							coordinates: coordinates,
 							contact: contact !== "" ? contact : solution.contact,
 							website: website !== "" ? website : solution.website,
 							details: details !== "" ? details : solution.details,
@@ -190,7 +190,7 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 						region: region,
 						img: image,
 						imgId: imageId,
-						googlePlusCode: googlePlusCode,
+						coordinates: coordinates,
 						contact: contact !== "" ? contact : solution.contact,
 						website: website !== "" ? website : solution.website,
 						details: details !== "" ? details : solution.details,
@@ -391,10 +391,10 @@ const SolutionForm: React.FC<Props> = ({ solution }) => {
 					<SolutionContactForm
 						contact={contact ?? ""}
 						website={website ?? ""}
-						googlePlusCode={googlePlusCode}
+						coordinates={coordinates}
 						onContactChange={handleContactChange}
 						onWebsiteChange={handleWebsiteChange}
-						onGooglePlusCodeChange={handleGooglePlusCodeChange}
+						onCoordinatesChange={handleCoordinatesChange}
 					/>
 				</div>
 				<div>

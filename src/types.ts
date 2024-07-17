@@ -21,7 +21,7 @@ export interface Solution {
 	img: string;
 	imgId: string;
 	region: Region;
-	googlePlusCode: string;
+	coordinates: [number, number];
 	website?: string;
 	contact?: string;
 	details?: string;

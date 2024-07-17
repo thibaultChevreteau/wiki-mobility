@@ -16,7 +16,7 @@ const SolutionContact: React.FC<Props> = ({ solution }) => {
 
 	return (
 		<div className="solution-contact">
-			<Map plusCode={solution.googlePlusCode} />
+			<Map coordinates={solution.coordinates} />
 			<div className="solution-contact__info">
 				<img
 					className="solution-contact__enveloppe"

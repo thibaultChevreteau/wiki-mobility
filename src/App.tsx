@@ -22,7 +22,7 @@ const App = () => {
 		img: "/default_image.png",
 		imgId: "",
 		region: Region.Other,
-		googlePlusCode: "W4PR+PC Sers",
+		coordinates: [42.9368642079612, 0.14196166143062808],
 	};
 
 	const dispatch = useAppDispatch();
