@@ -2,6 +2,11 @@ import React, { useRef, useEffect } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
+// Import default marker icon images
+import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
+
 type Props = {
 	coordinates: [number, number];
 };
@@ -23,8 +28,20 @@ const Map: React.FC<Props> = ({ coordinates }) => {
 				'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 		}).addTo(map);
 
+		// Define the custom icon
+		const defaultIcon = L.icon({
+			iconUrl: markerIcon,
+			iconRetinaUrl: markerIcon2x,
+			shadowUrl: markerShadow,
+			iconSize: [25, 41],
+			iconAnchor: [12, 41],
+			popupAnchor: [1, -34],
+			tooltipAnchor: [16, -28],
+			shadowSize: [41, 41],
+		});
+
 		// Add a marker
-		L.marker([latitude, longitude]).addTo(map);
+		L.marker([latitude, longitude], { icon: defaultIcon }).addTo(map);
 
 		return () => {
 			// Clean up the map instance on component unmount
@@ -38,81 +55,3 @@ const Map: React.FC<Props> = ({ coordinates }) => {
 };
 
 export default Map;
-
-// const Map: React.FC<Props> = ({ plusCode }) => {
-// 	const mapContainerRef = useRef<HTMLDivElement>(null);
-// 	const mapRef = useRef<google.maps.Map<Element> | undefined>();
-
-// 	useEffect(() => {
-// 		const loadMap = () => {
-// 			// Initialize the map
-// 			const mapOptions: google.maps.MapOptions = {
-// 				center: { lat: 0, lng: 0 },
-// 				zoom: 6,
-// 				zoomControl: true,
-// 				mapTypeControl: false,
-// 				streetViewControl: false,
-// 				fullscreenControl: false,
-// 				scaleControl: false,
-// 				rotateControl: false,
-// 				gestureHandling: "cooperative",
-// 			};
-// 			mapRef.current = new google.maps.Map(
-// 				mapContainerRef.current!,
-// 				mapOptions
-// 			);
-
-// 			// Load the PlaceService
-// 			const placesService = new google.maps.places.PlacesService(
-// 				mapRef.current!
-// 			);
-
-// 			// Search for the place using Plus Code
-// 			placesService.findPlaceFromQuery(
-// 				{
-// 					query: plusCode,
-// 					fields: ["geometry"],
-// 				},
-// 				(results, status) => {
-// 					if (
-// 						status === google.maps.places.PlacesServiceStatus.OK &&
-// 						results &&
-// 						results[0]
-// 					) {
-// 						const location = results[0].geometry?.location;
-// 						if (location) {
-// 							mapRef.current?.setCenter(location);
-// 							new google.maps.Marker({
-// 								position: location,
-// 								map: mapRef.current,
-// 							});
-// 						}
-// 					} else {
-// 						console.error("Failed to find place:", status);
-// 					}
-// 				}
-// 			);
-// 		};
-
-// 		if (!window.google) {
-// 			// If Google Maps JavaScript API is not loaded, load it dynamically
-// 			const script = document.createElement("script");
-// 			script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.MAPS_API_KEY}&libraries=places`;
-// 			script.async = true;
-// 			script.defer = true;
-// 			script.onload = loadMap;
-// 			document.body.appendChild(script);
-
-// 			return () => {
-// 				document.body.removeChild(script);
-// 			};
-// 		} else {
-// 			// If Google Maps JavaScript API is already loaded, initialize the map immediately
-// 			loadMap();
-// 		}
-// 	}, [plusCode]);
-
-// 	return <div ref={mapContainerRef} className="map" />;
-// };
-
-// export default Map;

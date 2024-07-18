@@ -14,6 +14,8 @@ const SolutionContact: React.FC<Props> = ({ solution }) => {
 		? solution.contact.replace(/\n/g, "  \n")
 		: "";
 
+	console.log(solution.coordinates);
+
 	return (
 		<div className="solution-contact">
 			<Map coordinates={solution.coordinates} />
